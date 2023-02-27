@@ -3,17 +3,24 @@ package project.Films.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import project.Films.domain.Film;
 import project.Films.domain.FilmRepository;
+import project.Films.domain.GenreRepository;
 
 @Controller
 public class FilmController {
 	
 	@Autowired
 	private FilmRepository filmRepository;
+	
+	@Autowired
+	private GenreRepository genreRepository;
 	
 	@RequestMapping("/index")
 	public String Films() {
@@ -32,5 +39,24 @@ public class FilmController {
     	return "redirect:/filmlist";
 	}
 	
+	@GetMapping("/add")
+	public String newFilm(Model model) {
+		model.addAttribute("film", new Film());
+		model.addAttribute("genres", genreRepository.findAll());
+		return "addfilm";
+	}
+	
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	public String deleteFilm(@PathVariable("id") long id, Model model) {
+		filmRepository.deleteById(id);
+		return "redirect:/filmlist";
+	}
+	
+	@GetMapping("editfilm/{id}")
+	public String editfilm(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("editfilm", filmRepository.findById(id));
+		model.addAttribute("genres", genreRepository.findAll());
+		return "editfilm";
+	}
 
 }

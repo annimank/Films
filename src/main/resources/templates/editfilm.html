@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Film</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<h1>Edit Film</h1>
+	<div>
+		<form th:object="${editfilm}" th:action="@{/save}" action="#" method="post">
+			
+			<input type="hidden" id="id" th:field="*{id}" />
+			
+			<label for="title">Title</label>
+			<input type="text" id="title" th:field="*{title}" />
+			
+			<label for="director">Director</label>
+			<input type="text" id="director" th:field="*{director}" />
+			
+			<div style="clear: both; display: block; height: 10px;"></div>						
+			<label for="genrelist">Genre</label>
+			<select id="genrelist" th:field="*{genre.genid}" class="form-control">
+  				<option value="1">Genre</option>
+  				<option th:each="genre : ${genres}" 
+          				th:value="${genre.genid}"
+          				th:text="${genre.name}">
+  				</option>
+			</select>
+			
+			<!-- temporary tää toimii mutta ei tu dropdownii joten ei siis toimi 
+			<label for="genrelist">Genre ID (1-5)</label>
+			<input type="text" id="genrelist" th:field="*{genre.genid}" /> -->
+			
+			<label for="relYear">Release Year</label>
+			<input type="text" id="relYear" th:field="*{relYear}" />
+			
+			<label for="duration">Duration</label>
+			<input type="text" id="duration" th:field="*{duration}" />
+			
+			<input type="submit" value="save"></input>
+		</form>
+	</div>
+	
+</body>
+</html>

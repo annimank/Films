@@ -4,7 +4,7 @@
 <head>
 	<title>Filmlist</title>
 	<meta http-equiv="Content-Type" content="text/html" charset=UTF-8/>
-	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+	<!-- <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" /> -->
 </head>
 
 <body>
@@ -15,23 +15,21 @@
 			<tr>
 				<td align="center"><b>Title</b></td>
 				<td align="center"><b>Director</b></td>
-				<td align="center"><b>Release Year</b></td>
+				<td align="center"><b>Year</b></td>
 				<td align="center"><b>Duration</b></td>
-				<td align="center"><b>Genre</b></td>
-				<td align="center" colspan="2"><b> </b></td>
+				<!-- <td align="center" colspan="2"><b> </b></td> -->
 			</tr>
 			
 			<tr th:each = "film : ${films}">
 				<td align="center" th:text="${film.title}"></td>
 				<td align="center" th:text="${film.director}"></td>
-				<td align="center" th:text="${film.relYear}"></td>
+				<td align="center" th:text="${film.year}"></td>
 				<td align="center" th:text="${film.duration}"></td>
-				<td align="center" th:text="${film.genre.name}"></td>
-				<td><a th:href="@{/delete/{id}(id=${film.id})}" class="btn btn-danger">Delete</a></td>
-				<td><a th:href="@{/editfilm/{id}(id=${film.id})}">Edit</a></td>
+				<!-- <td><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
+				<td><a th:href="@{/editbook/{id}(id=${book.id})}">Edit</a></td> -->
 			</tr>
 		</tbody>
 	</table>
-	<p><a href="/add" class="btn btn-success">Add a Film</a></p>
+	<!-- <p><a href="/add" class="btn btn-success">Add a Book</a></p> -->
 </body>
 </html>

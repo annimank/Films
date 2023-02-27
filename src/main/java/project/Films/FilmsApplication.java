@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 
 import project.Films.domain.Film;
 import project.Films.domain.FilmRepository;
+import project.Films.domain.Genre;
+import project.Films.domain.GenreRepository;
 
 @SpringBootApplication
 public class FilmsApplication {
@@ -16,14 +18,22 @@ public class FilmsApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner plants(FilmRepository filmRepository) {
+	public CommandLineRunner films(FilmRepository filmRepository, GenreRepository genreRepository) {
 		return (args) -> {
 			
+			genreRepository.save(new Genre("Sci-Fi"));
+			genreRepository.save(new Genre("Romance"));
+			genreRepository.save(new Genre("Horror"));
+			genreRepository.save(new Genre("Fantasy"));
+			genreRepository.save(new Genre("Drama"));
+			genreRepository.save(new Genre("Documentary"));
+			genreRepository.save(new Genre("Historical"));
+			genreRepository.save(new Genre("Comedy"));
 			
-			filmRepository.save(new Film("Amélie", "Jean-Pierre Jeunet", 2001, 122));
-			filmRepository.save(new Film("The Shape of Water", "Guillermo del Toro", 2017, 123));
-			filmRepository.save(new Film("La La Land", "Damien Chazelle", 2016, 128));
-			filmRepository.save(new Film("Rough Night", "Lucia Aniello", 2017, 101));
+			filmRepository.save(new Film("Amélie", "Jean-Pierre Jeunet", 2001, 122, genreRepository.findByName("Romance").get(0)));
+			filmRepository.save(new Film("The Shape of Water", "Guillermo del Toro", 2017, 123, genreRepository.findByName("Fantasy").get(0)));
+			filmRepository.save(new Film("La La Land", "Damien Chazelle", 2016, 128, genreRepository.findByName("Drama").get(0)));
+			filmRepository.save(new Film("Rough Night", "Lucia Aniello", 2017, 101, genreRepository.findByName("Comedy").get(0)));
 		};
 	}
 	

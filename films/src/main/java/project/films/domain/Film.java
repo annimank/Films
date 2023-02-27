@@ -1,11 +1,9 @@
-package project.Films.domain;
+package project.films.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Film {
@@ -14,23 +12,16 @@ public class Film {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	private String title, director;
-	private int relYear, duration;
-	
-	//going to add a keyword- manytomany -structure
-	
-	@ManyToOne
-	@JoinColumn(name = "genid")
-	private Genre genre;
+	private int year, duration;
 	
 	public Film() {}
 
-	public Film(String title, String director, int relYear, int duration, Genre genre) {
+	public Film(String title, String director, int year, int duration) {
 		super();
 		this.title = title;
 		this.director = director;
-		this.relYear = relYear;
+		this.year = year;
 		this.duration = duration;
-		this.genre = genre;
 	}
 
 	public long getId() {
@@ -57,12 +48,12 @@ public class Film {
 		this.director = director;
 	}
 
-	public int getRelYear() {
-		return relYear;
+	public int getYear() {
+		return year;
 	}
 
-	public void setRelYear(int relYear) {
-		this.relYear = relYear;
+	public void setYear(int year) {
+		this.year = year;
 	}
 
 	public int getDuration() {
@@ -72,22 +63,7 @@ public class Film {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-
-	public Genre getGenre() {
-		return genre;
-	}
-
-	public void setGenre(Genre genre) {
-		this.genre = genre;
-	}
-
-	@Override
-	public String toString() {
-		return "Film [id=" + id + ", title=" + title + ", director=" + director + ", relYear=" + relYear + ", duration="
-				+ duration + ", genre=" + genre + "]";
-	}
-
 	
 	
-
+	
 }
