@@ -13,10 +13,10 @@
 			<input type="hidden" id="id" th:field="*{id}" />
 			
 			<label for="title">Title</label>
-			<input type="text" id="title" th:field="*{title}" />
+			<input type="text" id="title" th:field="*{title}" /><br>
 			
 			<label for="director">Director</label>
-			<input type="text" id="director" th:field="*{director}" />
+			<input type="text" id="director" th:field="*{director}" /><br>
 			
 			<div style="clear: both; display: block; height: 10px;"></div>						
 			<label for="genrelist">Genre</label>
@@ -26,14 +26,14 @@
           				th:value="${genre.genid}"
           				th:text="${genre.name}">
   				</option>
-			</select>
+			</select><br>
 			
 			<!-- temporary tää toimii mutta ei tu dropdownii joten ei siis toimi 
 			<label for="genrelist">Genre ID (1-5)</label>
 			<input type="text" id="genrelist" th:field="*{genre.genid}" /> -->
 			
 			<label for="relYear">Release Year</label>
-			<input type="text" id="relYear" th:field="*{relYear}" />
+			<input type="text" id="relYear" th:field="*{relYear}" /><br>
 			
 			<label for="duration">Duration</label>
 			<input type="text" id="duration" th:field="*{duration}" />
