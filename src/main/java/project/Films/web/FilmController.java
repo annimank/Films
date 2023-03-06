@@ -1,6 +1,7 @@
 package project.Films.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,12 @@ public class FilmController {
 	
 	@Autowired
 	private GenreRepository genreRepository;
+	
+	//login
+	@RequestMapping(value="/login")
+	public String login() {
+		return "login";
+	} 
 	
 	@RequestMapping("/index")
 	public String Films() {
@@ -46,6 +53,7 @@ public class FilmController {
 		return "addfilm";
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteFilm(@PathVariable("id") long id, Model model) {
 		filmRepository.deleteById(id);

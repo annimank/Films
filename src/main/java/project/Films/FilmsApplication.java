@@ -5,6 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import project.Films.domain.AppUser;
+import project.Films.domain.AppUserRepository;
 import project.Films.domain.Film;
 import project.Films.domain.FilmRepository;
 import project.Films.domain.Genre;
@@ -18,8 +20,13 @@ public class FilmsApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner films(FilmRepository filmRepository, GenreRepository genreRepository) {
+	public CommandLineRunner films(FilmRepository filmRepository, GenreRepository genreRepository, AppUserRepository appUserRepository) {
 		return (args) -> {
+			
+			//tehdään keywordit
+			
+			appUserRepository.save(new AppUser("admin", "$2a$12$6ZMoGWJkzoKcg1qIriU2HOmFjEIOH/Sxzc4OityfQnpo.PwTWV9Lm", "ADMIN"));
+			appUserRepository.save(new AppUser("user", "$2a$12$YD68Waw0kCduoqtglyrFGusp4u73urkl6g8hicK5DeZEbX/YnifLq", "USER"));
 			
 			genreRepository.save(new Genre("Sci-Fi"));
 			genreRepository.save(new Genre("Romance"));

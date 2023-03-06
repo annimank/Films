@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 	<title>Filmlist</title>
@@ -8,9 +8,20 @@
 </head>
 
 <body>
+<div>
 	<div>
-		<h1 align="center">Best films</h1> 
-		<p align="center"><a href="/index">INDEX</a></p>
+		<!-- <h1 align="center">Best films</h1>  -->
+		<!-- <p align="center"><a href="/index">INDEX</a></p> -->
+		<div>
+			<div align="center"><h1>FILMS</h1></div>
+			<div align="center"><h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3></div>
+			<div align="center">
+				<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+				</form>
+			</div>
+	</div>
+	<br>
 	</div>
 	<table class="table table-striped">
 		<tbody>
@@ -21,7 +32,8 @@
 				<td align="center"><b>Runtime (min)</b></td>
 				<td align="center"><b>Genre</b></td>
 				<td align="center"><b>Keywords</b></td>
-				<td align="center" colspan="2"><b> </b></td>
+				<td sec:authorize="hasAuthority('ADMIN')" align="center" colspan="2"><b> </b></td>
+				<!-- <td align="center" colspan="2"><b> </b></td> -->
 			</tr>
 			
 			<tr th:each = "film : ${films}">
@@ -31,11 +43,18 @@
 				<td align="center" th:text="${film.duration}"></td>
 				<td align="center" th:text="${film.genre.name}"></td>
 				<td align="center">Keywords here, ManyToMany</td>
-				<td><a th:href="@{/delete/{id}(id=${film.id})}" class="btn btn-danger">Delete</a></td>
-				<td><a th:href="@{/editfilm/{id}(id=${film.id})}">Edit</a></td>
+				<td align="center" sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${film.id})}" class="btn btn-xs btn-danger">Delete</a></td>
+				<td align="center" sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/editfilm/{id}(id=${film.id})}">Edit</a></td>
+				<!-- <td><a th:href="@{/delete/{id}(id=${film.id})}" class="btn btn-danger">Delete</a></td>
+				<td><a th:href="@{/editfilm/{id}(id=${film.id})}">Edit</a></td> -->
+			</tr>
+			<tr sec:authorize="hasAuthority('ADMIN')">
+				<td colspan="7"></td>
+				<td align="center" sec:authorize="hasAuthority('ADMIN')"><a href="/add" class="btn btn-success">Add a Film</a></td>
 			</tr>
 		</tbody>
 	</table>
-	<p><a href="/add" class="btn btn-success">Add a Film</a></p>
+	<!-- <p><a href="/add" class="btn btn-success">Add a Film</a></p> -->
+</div>
 </body>
 </html>
