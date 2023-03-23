@@ -19,53 +19,13 @@ import project.Films.web.UserDetailServiceImpl;
 public class WebSecurityConfig {
 	@Autowired
 	private UserDetailServiceImpl userDetailsService;
-	
-	/*Anni tässä kommenteissa ne millä saa esim h2 db näkyviin*/
-	/*private static final AntPathRequestMatcher[] WHITE_LIST_URLS = {
-            new AntPathRequestMatcher("/api/**"),
-            new AntPathRequestMatcher("/h2-console/**"),
-            new AntPathRequestMatcher("/films/**")
-    };
-	
-	private static final AntPathRequestMatcher[] ADMIN_LIST_URLS = {
-            new AntPathRequestMatcher("/admin/**"),
-            new AntPathRequestMatcher("/user/**")
-    };*/
-	
-	/*@Bean
-	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		
-		http.authorizeHttpRequests().requestMatchers(ADMIN_LIST_URLS).hasAuthority("ADMIN")
-		.and()
-		.authorizeHttpRequests().requestMatchers(WHITE_LIST_URLS).permitAll()
-		.and()
-		.authorizeHttpRequests().anyRequest().authenticated()
-		//for h2 console
-		.and()
-		.headers().frameOptions().disable()			
-		.and()
-		.formLogin()
-		.loginPage("/login")
-		.defaultSuccessUrl("/booklist", true)
-		.and()
-		.logout().permitAll();
-		
-		http.cors().and().csrf().disable();
-		
-		//Ohjelmistoprojekti1:n matskuun tämä
-		//.addFilterAfter(new CsrfLoggerFilter(), CsrfFilter.class); 
-		
-		return http.build();
-
-		
-	}*/
-	
 		@Bean
 	    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 	        
 		 http
 	        .authorizeRequests()
-	        	.antMatchers("/css/**").permitAll() // Enable css when logged out
+	        	.antMatchers("/css/**").permitAll()
 	        	.anyRequest().authenticated()
 	        	.and()
 	      .formLogin()
@@ -86,7 +46,7 @@ public class WebSecurityConfig {
 	 }
 
 	 	//Creating in memory users
-	   /*@Bean
+	 	/*@Bean
 	    public UserDetailsService userDetailsService() {
 	        List<UserDetails> users = new ArrayList<UserDetails>();
 
