@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Genre {
@@ -15,10 +18,13 @@ public class Genre {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long genid;
+	@Size(min = 1, max = 50)
 	private String name;
 	
 	@OneToMany(cascade= CascadeType.ALL, mappedBy = "genre")
 	
+	//RESTISSÄ LISÄTTIIN TÄMÄ IGNORE, JÄÄ MUUTEEN IKUISEEN LOOPPIIN
+	@JsonIgnore	
 	private List<Film> films;
 	
 	public Genre() {}

@@ -1,10 +1,14 @@
 package project.Films.web;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,10 +44,21 @@ public class FilmController {
 		return "filmlist";
 	}
 	
-	@PostMapping("/save")
+	/*@PostMapping("/save")
     public String save(Film film, Model model) {
     	filmRepository.save(film);
     	return "redirect:/filmlist";
+	}*/
+	
+	@PostMapping("/save")
+	public String save(@Valid @ModelAttribute ("film") Film film, BindingResult bindingResult, Model model) {
+	    if (bindingResult.hasErrors()) {
+			model.addAttribute("films", filmRepository.findAll());
+			model.addAttribute("genres", genreRepository.findAll());
+	    	return "addfilm";
+	    }
+	    filmRepository.save(film);
+	    return "redirect:/filmlist";
 	}
 	
 	@GetMapping("/add")

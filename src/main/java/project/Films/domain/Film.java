@@ -6,6 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
 
 @Entity
 public class Film {
@@ -13,8 +16,18 @@ public class Film {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
-	private String title, director;
-	private int relYear, duration;
+	
+	@Size(min = 1, max = 100, message="Title must be at least one character long")
+	private String title;
+
+	@Size(min = 1, max = 100, message="Director must be at least one character long")
+	private String director;
+	
+	@Min(value = 0, message = "Release year must be greater than or equal to 0")
+	private int relYear;
+	
+	@Min(value = 1, message = "Duration must be greater than or equal to 1")
+	private int duration;
 	
 	//going to add a keyword- manytomany -structure
 	
